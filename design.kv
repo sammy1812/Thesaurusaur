@@ -1,0 +1,157 @@
+<HomeScreen>:
+    GridLayout:
+        cols:1
+        GridLayout:
+            cols:1
+            
+            Label:
+                text: "Welcome to the thesaurusaur!"
+            Image:
+                source: 'thes.jpg'
+        
+        GridLayout:
+            cols:1 
+            size_hint:0.2, 0.2
+            padding: 11,11
+            spacing: 10,10      
+            Button:
+                text:"Login"
+                on_press: root.loginpress()
+                background_color: 1,1,1,0 
+                opacity: 1 if self.state == 'normal' else 0.5  
+                color: 0.1,0.7,1,1
+                
+            Button:
+                text: "Sign up" 
+                on_press: root.signuppress()
+                background_color: 1,1,1,0 
+                opacity: 1 if self.state == 'normal' else 0.5  
+                color: 0.1,0.7,1,1       
+
+<LoginScreen>:
+    GridLayout:
+        cols:1
+        GridLayout:
+            cols:1
+            padding: 15,15
+            spacing: 20,20
+            Label:
+                text: "User Login"
+                font_size: '20sp'
+            TextInput:
+                id: username
+                hint_text: "Username"
+            TextInput:
+                id: password
+                hint_text: "Password"
+                password: True 
+            
+            RelativeLayout:               
+                Button:
+                    text: "Login"
+                    on_press: root.login(root.ids.username.text, root.ids.password.text)
+                    size_hint: 0.7, 0.8
+                    pos_hint: {'center_x':0.5, 'center_y':0.6}
+            RelativeLayout:               
+                Button:
+                    text: "Go back to Welcome Screen"
+                    on_press: root.go_back_to_welcome()
+                    size_hint: 0.7, 0.8
+                    pos_hint: {'center_x':0.5, 'center_y':0.6}        
+            Label:
+                id: login_wrong
+                text: ""            
+        GridLayout:
+            size_hint:0.2, 0.2
+            padding: 11,11
+            spacing: 10,0
+            cols:2
+            
+<SignUpScreen>:
+    GridLayout:
+        padding: 20,20
+        spacing: 20,20
+        cols:1
+        Label:
+            text: "Sign Up"
+        TextInput:
+            hint_text:"New Username"
+            id: username
+        TextInput:
+            hint_text:"New Password"
+            id: password   
+        RelativeLayout:         
+            Button:
+                text:"Submit"
+                on_press:root.add_user(root.ids.username.text,root.ids.password.text)
+                size_hint: 0.3, 0.5
+                pos_hint: {'center_x':0.5, 'center_y':0.6}
+        RelativeLayout:        
+            Button:
+                text:"Go back to login page"
+                on_press:root.go_back_to_login()   
+                size_hint: 0.3, 0.5
+                pos_hint: {'center_x':0.5, 'center_y':0.6} 
+
+<SignUpScreenSuccess>:
+    GridLayout:
+        cols:1
+        Label:
+            text: "Sign Up successful!"  
+        Button:
+            text: "Go back to login page"
+            on_press:root.go_back_to_login()
+            size_hint: 0.3, 0.5
+            pos_hint: {'center_x':0.5, 'center_y':0.6} 
+<DicScreen>:
+
+    GridLayout:
+        cols:1
+        padding: 30,30
+        spacing: 30,30
+        RelativeLayout:
+            ImageButton:
+            
+                on_press: root.log_out()
+                source: 'logout_hover.png' if self.hovered else 'logout_nothover.png'
+                size_hint: 0.34,0.34
+                pos_hint: {'center_x':0.94,'center_y':0.81}
+        
+        Label:
+            text:"Enter a word"
+        TextInput:
+            hint_text: "Things to try: annihilate, delinquent and more..."    
+            id: word
+            size_hint: 0.3, 0.5
+            pos_hint: {'center_x':0.5, 'center_y':0.6}
+        RelativeLayout:
+
+            Button:
+                text:"Search"
+                on_press: root.translate()
+                size_hint: 0.5, 0.6
+                pos_hint: {'center_x':0.5, 'center_y':0.6}
+
+        ScrollView:
+            Label:
+                id: translated
+                text:""
+                text_size: self.width,None
+                size_hint_y: None
+                height: self.texture_size[1]
+
+
+
+
+
+<RootWidget>:
+    HomeScreen:
+        name: "homescreen"
+    DicScreen:
+        name: "dicscreen"     
+    LoginScreen:
+        name: "loginscreen"  
+    SignUpScreen:
+        name: "signupscreen"   
+    SignUpScreenSuccess:
+        name: "sign_up_screen_success"            
